@@ -10,6 +10,8 @@ class products:
        self.quantity = int(quantity)
        self.limited = bool(limited)
 
+       def __str__(self):
+           return f"{self.product_id} - {self.name} (${self.price:.2f)}")
 window = tk.Tk()
 window.title("Stock System")
 window.geometry("600x700")
