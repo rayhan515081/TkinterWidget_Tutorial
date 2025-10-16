@@ -11,7 +11,7 @@ class products:
        self.limited = bool(limited)
 
        def __str__(self):
-           return f"{self.product_id} - {self.name} (${self.price:.2f)}")
+           return f"{self.product_id} - {self.name} (${self.price:.2f)}"
 window = tk.Tk()
 window.title("Stock System")
 window.geometry("600x700")
@@ -20,6 +20,10 @@ String_var= tk.StringVar()
 double_var= tk.DoubleVar()
 int_var= tk.IntVar()
 bool_var= tk.BooleanVar()
+
+add_button= ttk.Button(window, text="Add Product")
+add_button.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
+
 
 # labels
 fields = ['Product ID' ,'Product Name', 'Product Description' ,'Price' ,'Quantity' ,'Limited']
