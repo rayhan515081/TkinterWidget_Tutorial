@@ -1,6 +1,15 @@
 import tkinter as tk
 from tkinter import BooleanVar, DoubleVar, IntVar, StringVar, ttk
 
+class products:
+  def __init__(self,Product_ID, name, description, price, quantity, limited):
+       self.Product_id = id
+       self.name = name
+       self.description = description
+       self.price = float(price)
+       self.quantity = int(quantity)
+       self.limited = bool(limited)
+
 window = tk.Tk()
 window.title("Stock System")
 window.geometry("600x700")
