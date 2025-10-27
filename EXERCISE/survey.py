@@ -1,61 +1,46 @@
 import tkinter as tk
-from tkinter import SOLID, ttk,StringVar,messagebox
+from tkinter import ttk,StringVar
 
 window = tk.Tk()
-window.title("Survey")
-window.geometry("500x600")
+window.title("Test")
+window.geometry("800x700")
 
-label_survey = ttk.Label(master=window,text="Survey",font="Calibri 28 ")
-label_survey.grid(row=0,column=0,padx=20, pady=10)
-label_prompt = ttk.Label(master=window,text="What's your favourite subject?",font="Calibri 14")
-label_prompt.grid(row=1,column=0,padx=10, pady=10)
+radiobutton_frame=tk.Frame(window)
 
-string_var=tk.StringVar()
+# Title labels
+label_heading=ttk.Label(master=window, text="IQ Test", font='Calibri 28 bold', borderwidth=1, relief='flat')
+label_heading.grid(row=0, column=1, padx=10,pady=10)
+label_sub=ttk.Label(master=window , text='Find Your IQ', font = 'Calibri 24', borderwidth=1, relief='flat')
+label_sub.grid(row=1, column=1, padx=10, pady=10)
 
-combo_box = ttk.Combobox(master=window,textvariable=string_var, values =["Maths","English","Science"],font="Calibri 12",state='readonly')
-combo_box.grid(row=1, column=1,padx=10,pady=10)
- 
-# Questions
-question_label= ttk.Label(master=window, text="", font='Calibri 12')
-question_label.grid(row=2, column=0,padx=10, pady =10)
-answer_entry = ttk.Entry(master=window, font='Calibri 12')
-answer_entry.grid(row=2, column=1,padx=10, pady =10)
-result_label=ttk.Label(master=window, text="RESULT :", font='Calibri 12', foreground='green', relief ='raised')
-result_label.grid(row=4, column=1, columnspan=2, padx=10, pady=10)
+# question labels
+questions = [
+    "1. If all Bloops are Razzies, and all Razzies are Lazzies, are all Bloops definitely Lazzies?",
+    "2. What number comes next in the series: 2, 6, 12, 20, 30, ",
+    "3. A cube has 6 faces. If you paint all faces and cut it into 27 smaller cubes, how many small cubes will have only one face painted?",
+    "4. Rearrange the letters 'CIFAIPC' to form a word.",
+    "5.Which one of the five is least like the other four?"]
 
-def on_select(event):
-    selected = combo_box.get()
-    global current_question
-    current_question = selected
-    if selected == "Maths":
-        question_label.config(text = "Solve 2x + 8 = 10:")
-    elif selected == "English":
-        question_label.config(text = "Who is the author for Macbeth ? ")
-    elif selected == "Science":
-        question_label.config(text = "What is the chemical symbol for Oxygen ? ")
+entries =[]
 
+for i, question in enumerate(questions):
+        label=ttk.Label(master=window, text=question, font='Calibri 16', anchor='w', wraplength=500)
+        label.grid(row=i+1,column=0, sticky='w',padx=10,pady=10)
 
-def submit_button_clicked():
-    answer = answer_entry.get().strip()  
-    if answer != "":
-        if current_question == "Maths" and answer in ["x=1", "1"]:
-            result_label.config(text = "Result : CORRECT!")
-        elif current_question == "English" and answer.lower() in ["shakespeare", "william shakespeare"]:
-            result_label.config(text = "Result : CORRECT!")
-        elif current_question == "Science" and answer.upper() == "O2" and answer.lower() in ["o2"]:
-            result_label.config(text = "Result : CORRECT!")
+        if question == questions[0]:
+            var=StringVar()
+            radio1 = ttk.Radiobutton(radiobutton_frame,value =1,text='No')
+            radio2 = ttk.Radiobutton(radiobutton_frame,value =2, text= 'Yes')
+            radio1.pack(anchor='w')
+            radio2.pack(anchor='w')
+            radiobutton_frame.grid(row=i+1,column=1,padx=10,pady=10)
+        elif question == questions[4]:
+            entry = ttk.Combobox(window, values =["Dog","Mouse","Lion","Snake","Elephant"], font='Calibri 14', state='readonly')
         else:
-            result_label.config(text = "RESULT : Incorrect...Try again", foreground='red')
-    else:
-        messagebox.showwarning("No answer", "Please enter an answer.")
+            entry = ttk.Entry(window,font='Calibri 14')
+        entry.grid(row=i+1, column=1, padx=10, pady=10)
 
-
-submit_button= ttk.Button(master=window, text="Submit", command=submit_button_clicked)
-submit_button.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
-
-combo_box.bind("<<ComboboxSelected>>", on_select)
-
-current_question = None
+entries.append(entry)
 
 window.mainloop()
 
