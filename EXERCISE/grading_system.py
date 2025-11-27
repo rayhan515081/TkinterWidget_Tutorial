@@ -51,6 +51,7 @@ fields = ['First Name :', 'Last Name :','Subject :']
 
 entries=[]
 
+
 for i, field in enumerate(fields):
     label= ttk.Label(window, text=field, font='Calibri 14',anchor='w')
     label.grid(row=i+1, column=0, sticky='w',padx=10,pady=10)
@@ -61,5 +62,19 @@ for i, field in enumerate(fields):
         entry = ttk.Entry(window, font='Calibri 14')
     entry.grid(row=i+1, column=1, padx=10, pady=10)
     entries.append(entry)
+
+def validate_name(name):
+    if name.isalpha():
+        return True
+    return False
+
+def on_submit():
+    name = entries(0)(1).get()
+    if not validate_name(name):
+        messagebox.showerror("Invalid Input", 
+                             "Name must contain only alphabets.")
+    else:
+        messagebox.showinfo("Valid Input",
+                            "Name is valid.")
 
 window.mainloop()
